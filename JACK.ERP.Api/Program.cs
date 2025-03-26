@@ -1,6 +1,7 @@
 ﻿using JACK.ERP.Api.Middlewares;
 using JACK.ERP.Aplicacion;
 using JACK.ERP.Infraestructura;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,14 @@ builder.Services.AddSwaggerGen();
 string? connectionString = builder.Configuration.GetConnectionString("DBConnection");
 
 builder.Services.AddApplication().AddInfraestructura(connectionString);
+
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/app-log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog(); //
 
 var app = builder.Build();
 
