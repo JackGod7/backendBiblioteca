@@ -1,11 +1,10 @@
-﻿using JACK.ERP.Dominio.Entities;
+﻿// JACK.ERP.Infraestructura\Repositories\Entidades\CopiaRepository.cs
+using JACK.ERP.Dominio.Entities;
 using JACK.ERP.Dominio.Interfaces;
 using JACK.ERP.Infraestructura.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JACK.ERP.Infraestructura.Repositories.Entidades
@@ -19,17 +18,11 @@ namespace JACK.ERP.Infraestructura.Repositories.Entidades
             _context = context;
         }
 
-        public async Task<Copia> ObtenerCopiaAsync(int copiaId)
-        {
-            return await _context.Copias.FindAsync(copiaId);
-        }
-
-        // Obtener varias copias en una sola consulta
-        public async Task<List<Copia>> ObtenerCopiasPorIdsAsync(IEnumerable<int> copiasIds)
+        public async Task<List<Copia>> ObtenerCopiasPorIdsAsync(IEnumerable<int> copiaIds)
         {
             return await _context.Copias
-                                 .Where(c => copiasIds.Contains(c.CopiaId))
-                                 .ToListAsync();
+                .Where(c => copiaIds.Contains(c.CopiaId))
+                .ToListAsync();
         }
     }
 }

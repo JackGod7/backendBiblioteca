@@ -1,63 +1,56 @@
-﻿using JACK.ERP.Api.DTOs;
-using JACK.ERP.Aplicacion.Interfaces.Entidades;
-using Microsoft.AspNetCore.Authorization;
+﻿using JACK.ERP.Aplicacion.Interfaces.Entidades;
+using JACK.ERP.Api.DTOs;
+using JACK.ERP.Api.Mappings;  // Clase con metodo de extensión ToListarPrestamoResponse
+using JACK.ERP.Dominio.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace JACK.ERP.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PrestamoController : ControllerBase
     {
         private readonly IPrestamoService _prestamoService;
 
-        // Inyección de dependencia correcta
         public PrestamoController(IPrestamoService prestamoService)
         {
             _prestamoService = prestamoService;
         }
-        [HttpPost("registrar")]
-        public async Task<IActionResult> RegistrarPrestamo([FromBody] RegistrarPrestamoRequest request)
-        {
-            try
-            {
-                var alquilerCreado = await _prestamoService.RegistrarPrestamoAsync(
-                    request.ClienteId,
-                    request.CopiasId,
-                    request.FechaFin
-                );
 
-                return Ok(new
-                {
-                    reservaId = alquilerCreado.AlquilerId,
-                    fechaReserva = alquilerCreado.FechaInicio,
-                    estado = "Pendiente",
-                    mensaje = "Préstamo registrado correctamente"
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
+        // GET: /api/Prestamo/listar
+        [HttpGet("listar")]
+        public async Task<ActionResult<IEnumerable<ListarPrestamoResponse>>> ListarPrestamosAsync()
+        {
+            var alquileres = await _prestamoService.ObtenerPrestamosAsync();
+            var response = alquileres
+                .Select(a => a.ToListarPrestamoResponse());
+
+            // Retornamos un 200 OK con el array
+            return Ok(response);
         }
 
-
-        [AllowAnonymous]
-        [HttpGet("listar")]
-        public async Task<IActionResult> ListarPrestamosAsync()
+        // POST: /api/Prestamo/registrar
+        [HttpPost("registrar")]
+        public async Task<ActionResult<RegistrarPrestamoResponse>> RegistrarPrestamo([FromBody] RegistrarPrestamoRequest request)
         {
-            try
+            var alquilerCreado = await _prestamoService.RegistrarPrestamoAsync(
+                request.ClienteId,
+                request.CopiasId,
+                request.FechaFin
+            );
+
+            var response = new RegistrarPrestamoResponse
             {
-                var prestamos = await _prestamoService.ObtenerPrestamosAsync();
-                return Ok(prestamos);
-            }
-            catch (Exception ex)
-            {
-                // En lugar de relanzar la excepción, lo normal es devolver un 500 con el mensaje
-                return StatusCode(500, new { error = ex.Message });
-            }
+                ReservaId = alquilerCreado.AlquilerId,
+                FechaReserva = alquilerCreado.FechaInicio,
+                Estado = "Pendiente",
+                Mensaje = "Préstamo registrado correctamente"
+            };
+
+            return Ok(response);
         }
     }
 }

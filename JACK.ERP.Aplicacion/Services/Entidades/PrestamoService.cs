@@ -1,57 +1,75 @@
-﻿using JACK.ERP.Aplicacion.Interfaces.Entidades;
+﻿// JACK.ERP.Aplicacion\Services\Entidades\PrestamoService.cs
+using JACK.ERP.Aplicacion.Interfaces.Entidades;
 using JACK.ERP.Dominio.Entities;
 using JACK.ERP.Dominio.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging; // para logs
+
 
 namespace JACK.ERP.Aplicacion.Services.Entidades
 {
     public class PrestamoService : IPrestamoService
     {
         private readonly IPrestamoRepository _prestamoRepository;
-        private readonly IClienteRepository _clienteRepository; // Para lista negra
+        private readonly IClienteRepository _clienteRepository;
         private readonly ICopiaRepository _copiaRepository;
+        private readonly ILogger<PrestamoService> _logger;
+
         public PrestamoService(
             IPrestamoRepository prestamoRepository,
             IClienteRepository clienteRepository,
-            ICopiaRepository copiaRepository)
+            ICopiaRepository copiaRepository,
+            ILogger<PrestamoService> logger)
         {
             _prestamoRepository = prestamoRepository;
             _clienteRepository = clienteRepository;
             _copiaRepository = copiaRepository;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Alquiler>> ObtenerPrestamosAsync()
         {
+            _logger.LogInformation("Obteniendo lista de préstamos (alquileres)...");
             return await _prestamoRepository.ObtenerPrestamosAsync();
         }
 
-        // Nuevo método para registrar un préstamo
         public async Task<Alquiler> RegistrarPrestamoAsync(int clienteId, List<int> copiasId, DateTime fechaFin)
         {
-            // 1) Verificar si el cliente está en lista negra
+            _logger.LogInformation("Registrando préstamo para cliente {ClienteId} con copias {Copias}",
+                clienteId, string.Join(",", copiasId));
+
+            // 1) Validar lista negra
             bool enListaNegra = await _clienteRepository.EstaEnListaNegraAsync(clienteId);
             if (enListaNegra)
-                throw new Exception("El cliente está en lista negra y no puede prestar libros.");
+            {
+                _logger.LogWarning("Cliente {ClienteId} está en lista negra.", clienteId);
+                throw new Exception("El cliente está en lista negra.");
+            }
 
-            // 2) Contar cuántas copias aún tiene sin devolver
+            // 2) Validar máximo de 3 copias
             int copiasActivas = await _prestamoRepository.ObtenerCopiasActivasDeClienteAsync(clienteId);
             if (copiasActivas + copiasId.Count > 3)
+            {
+                _logger.LogWarning("Cliente {ClienteId} excede el límite de 3 copias.", clienteId);
                 throw new Exception("El cliente ya superó el límite de 3 copias en préstamo.");
+            }
 
-            // 3) Verificar si cada copia existe y está “Disponible”
+            // 3) Verificar disponibilidad
             var copiasSolicitadas = await _copiaRepository.ObtenerCopiasPorIdsAsync(copiasId);
             if (copiasSolicitadas.Count != copiasId.Count)
-                throw new Exception("Algunas de las copias solicitadas no existen.");
+                throw new Exception("Alguna de las copias solicitadas no existe en la base de datos.");
 
             foreach (var copia in copiasSolicitadas)
             {
-                if (copia.Estado != "Disponible")
-                    throw new Exception($"La copia '{copia.CodigoBarras}' no está en estado disponible (actual: {copia.Estado}).");
+                // Asumiendo que copia.Estado es un enum
+                if (copia.Estado != CopiaEstado.Disponible)
+                {
+                    _logger.LogWarning("Copia {CopiaId} con estado {Estado}, no se puede prestar.",
+                        copia.CopiaId, copia.Estado);
+                    throw new Exception($"La copia '{copia.CodigoBarras}' no está disponible (actual: {copia.Estado}).");
+                }
             }
 
-            // 4) Crear la entidad Alquiler
+            // 4) Crear Alquiler
             var alquiler = new Alquiler
             {
                 ClienteId = clienteId,
@@ -60,10 +78,10 @@ namespace JACK.ERP.Aplicacion.Services.Entidades
                 Penalidad = 0
             };
 
-            // 5) Guardar usando PrestamoRepository (transacción + actualización de estado)
+            // 5) Persistir con repositorio
             await _prestamoRepository.RegistrarAlquilerAsync(alquiler, copiasId);
 
-            // 6) Devolver el alquiler creado
+            _logger.LogInformation("Préstamo registrado con AlquilerId={AlquilerId}", alquiler.AlquilerId);
             return alquiler;
         }
     }

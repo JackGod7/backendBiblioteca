@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace JACK.ERP.Dominio.Entities
 {
-    public class Copia
+    public enum CopiaEstado
     {
-        public int CopiaId { get; set; }
-        public string CodigoBarras { get; set; }
-        public CopiaEstado Estado { get; set; }
+        Disponible,
+        Prestado,
+        Dañado,
+        Extraviado
     }
 }

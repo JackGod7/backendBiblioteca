@@ -1,4 +1,5 @@
-﻿namespace JACK.ERP.Api.DTOs
+﻿
+namespace JACK.ERP.Api.DTOs
 {
     public class RegistrarPrestamoRequest
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Aplicacion", "02.Aplicacion", "{1991F8B6-EE6B-4B3D-B647-0C11F606068E}"
 EndProject
@@ -18,6 +18,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Aplicacion", "JACK.ERP.Aplicacion\JACK.ERP.Aplicacion.csproj", "{71AC10CC-9682-4476-8862-5D1D25B72F16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Api", "JACK.ERP.Api\JACK.ERP.Api.csproj", "{6B02A877-C466-451C-BE8C-0B0A62E509EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Tests", "05.Tests", "{E2D579AD-88A2-4B0F-AF1C-FAB9A2BDA67E}"
+	ProjectSection(SolutionItems) = preProject
+		PrestamoServiceTests.cs = PrestamoServiceTests.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.IntegrationTests", "06.IntegrationTests", "{879E0F52-B418-407A-B125-055CB9ABF661}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{4A541DD7-AE41-48C8-A51C-F140F4DC5617}"
+	ProjectSection(SolutionItems) = preProject
+		PrestamoRepositoryTests.cs = PrestamoRepositoryTests.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,5 +62,6 @@ Global
 		{C0F70617-2720-45B0-84FC-E3AAB93EE528} = {300E25B3-ADE5-4488-BD98-839DD668666E}
 		{71AC10CC-9682-4476-8862-5D1D25B72F16} = {1991F8B6-EE6B-4B3D-B647-0C11F606068E}
 		{6B02A877-C466-451C-BE8C-0B0A62E509EB} = {597BF086-630D-4189-BF9C-DF97C91F27C2}
+		{4A541DD7-AE41-48C8-A51C-F140F4DC5617} = {879E0F52-B418-407A-B125-055CB9ABF661}
 	EndGlobalSection
 EndGlobal

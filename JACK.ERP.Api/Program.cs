@@ -1,4 +1,5 @@
-﻿using JACK.ERP.Aplicacion;
+﻿using JACK.ERP.Api.Middlewares;
+using JACK.ERP.Aplicacion;
 using JACK.ERP.Infraestructura;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,8 @@ string? connectionString = builder.Configuration.GetConnectionString("DBConnecti
 builder.Services.AddApplication().AddInfraestructura(connectionString);
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

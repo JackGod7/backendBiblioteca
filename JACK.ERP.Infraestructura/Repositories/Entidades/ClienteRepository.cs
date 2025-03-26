@@ -1,7 +1,8 @@
-﻿using JACK.ERP.Dominio.Interfaces;
+﻿// JACK.ERP.Infraestructura\Repositories\Entidades\ClienteRepository.cs
+using JACK.ERP.Dominio.Interfaces;
 using JACK.ERP.Infraestructura.Data;
 using Microsoft.EntityFrameworkCore;
-
+using System.Threading.Tasks;
 
 namespace JACK.ERP.Infraestructura.Repositories.Entidades
 {
@@ -16,8 +17,7 @@ namespace JACK.ERP.Infraestructura.Repositories.Entidades
 
         public async Task<bool> EstaEnListaNegraAsync(int clienteId)
         {
-            return await _context.ListaNegra
-                                 .AnyAsync(ln => ln.ClienteId == clienteId);
+            return await _context.ListaNegra.AnyAsync(ln => ln.ClienteId == clienteId);
         }
     }
 }

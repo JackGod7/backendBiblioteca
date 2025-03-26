@@ -1,10 +1,9 @@
-﻿using JACK.ERP.Dominio.Entities;
+﻿// JACK.ERP.Infraestructura\Repositories\Entidades\PrestamoRepository.cs
+using JACK.ERP.Dominio.Entities;
 using JACK.ERP.Dominio.Interfaces;
 using JACK.ERP.Infraestructura.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace JACK.ERP.Infraestructura.Repositories.Entidades
 {
@@ -17,41 +16,39 @@ namespace JACK.ERP.Infraestructura.Repositories.Entidades
             _context = context;
         }
 
-        // En PrestamoRepository (ObtenerPrestamosAsync):
         public async Task<IEnumerable<Alquiler>> ObtenerPrestamosAsync()
         {
-            // Incluimos también el cliente
+            // Cargar Detalles y Copias
             return await _context.Alquileres
                 .Include(a => a.Cliente)
-                .Include(a => a.Detalles)
-                .ThenInclude(d => d.Copia)
+                .Include(a => a.Detalles).ThenInclude(d => d.Copia)
                 .ToListAsync();
         }
-
 
         public async Task RegistrarAlquilerAsync(Alquiler alquiler, List<int> copiasId)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
+                // Insertar cabecera
                 await _context.Alquileres.AddAsync(alquiler);
                 await _context.SaveChangesAsync();
 
-                foreach (var copiaId in copiasId)
+                // Insertar detalle + actualizar estado de copias
+                foreach (var cid in copiasId)
                 {
                     var detalle = new AlquilerDetalle
                     {
                         AlquilerId = alquiler.AlquilerId,
-                        CopiaId = copiaId
+                        CopiaId = cid
                     };
                     await _context.AlquilerDetalles.AddAsync(detalle);
 
-                    var copia = await _context.Copias.FindAsync(copiaId);
-                    if (copia != null)
-                    {
-                        copia.Estado = "Prestado";
-                        _context.Copias.Update(copia);
-                    }
+                    var copia = await _context.Copias.FindAsync(cid);
+                    if (copia == null)
+                        throw new Exception($"No se encontró la copia con ID={cid}"); // debería no ocurrir, revisado antes
+                    copia.Estado = CopiaEstado.Prestado;
+                    _context.Copias.Update(copia);
                 }
 
                 await _context.SaveChangesAsync();
@@ -66,13 +63,13 @@ namespace JACK.ERP.Infraestructura.Repositories.Entidades
 
         public async Task<int> ObtenerCopiasActivasDeClienteAsync(int clienteId)
         {
+            // Alquileres sin fechaDevolucion => no devuelto
             var alquileresActivos = await _context.Alquileres
                 .Where(a => a.ClienteId == clienteId && a.FechaDevolucion == null)
                 .Include(a => a.Detalles)
                 .ToListAsync();
 
-            int totalCopias = alquileresActivos.Sum(a => a.Detalles.Count);
-            return totalCopias;
+            return alquileresActivos.Sum(a => a.Detalles.Count);
         }
     }
 }
