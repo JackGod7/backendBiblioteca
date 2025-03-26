@@ -1,0 +1,38 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated_Code/
+
+# VS Code folders
+.vscode/
+
+# Logs
+*.log
+
+# Configuration
+appsettings.*.json
+
+# Database
+*.mdf
+*.ldf
+
+# EF Migrations history
+Migrations/
+
+# Publish profiles
+Properties/PublishProfiles/
+
+# Others
+*.db
+*.sqlite
+*.bak
+*.tmp
