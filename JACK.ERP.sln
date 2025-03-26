@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Aplicacion", "02.Aplicacion", "{1991F8B6-EE6B-4B3D-B647-0C11F606068E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Presentacion", "01.Presentacion", "{597BF086-630D-4189-BF9C-DF97C91F27C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Dominio", "03.Dominio", "{300E25B3-ADE5-4488-BD98-839DD668666E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Infraestructura", "04.Infraestructura", "{CD2F1082-89C2-4D16-B189-5314512D32FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Infraestructura", "JACK.ERP.Infraestructura\JACK.ERP.Infraestructura.csproj", "{3AF0E878-D2A0-43C7-919D-EC79BEDF892F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Dominio", "JACK.ERP.Dominio\JACK.ERP.Dominio.csproj", "{C0F70617-2720-45B0-84FC-E3AAB93EE528}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Aplicacion", "JACK.ERP.Aplicacion\JACK.ERP.Aplicacion.csproj", "{71AC10CC-9682-4476-8862-5D1D25B72F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JACK.ERP.Api", "JACK.ERP.Api\JACK.ERP.Api.csproj", "{6B02A877-C466-451C-BE8C-0B0A62E509EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AF0E878-D2A0-43C7-919D-EC79BEDF892F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF0E878-D2A0-43C7-919D-EC79BEDF892F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF0E878-D2A0-43C7-919D-EC79BEDF892F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF0E878-D2A0-43C7-919D-EC79BEDF892F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0F70617-2720-45B0-84FC-E3AAB93EE528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0F70617-2720-45B0-84FC-E3AAB93EE528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0F70617-2720-45B0-84FC-E3AAB93EE528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F70617-2720-45B0-84FC-E3AAB93EE528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71AC10CC-9682-4476-8862-5D1D25B72F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71AC10CC-9682-4476-8862-5D1D25B72F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71AC10CC-9682-4476-8862-5D1D25B72F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71AC10CC-9682-4476-8862-5D1D25B72F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B02A877-C466-451C-BE8C-0B0A62E509EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B02A877-C466-451C-BE8C-0B0A62E509EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B02A877-C466-451C-BE8C-0B0A62E509EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B02A877-C466-451C-BE8C-0B0A62E509EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AF0E878-D2A0-43C7-919D-EC79BEDF892F} = {CD2F1082-89C2-4D16-B189-5314512D32FA}
+		{C0F70617-2720-45B0-84FC-E3AAB93EE528} = {300E25B3-ADE5-4488-BD98-839DD668666E}
+		{71AC10CC-9682-4476-8862-5D1D25B72F16} = {1991F8B6-EE6B-4B3D-B647-0C11F606068E}
+		{6B02A877-C466-451C-BE8C-0B0A62E509EB} = {597BF086-630D-4189-BF9C-DF97C91F27C2}
+	EndGlobalSection
+EndGlobal

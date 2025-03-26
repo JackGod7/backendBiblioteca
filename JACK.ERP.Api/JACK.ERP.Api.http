@@ -1,0 +1,6 @@
+@JACK.ERP.Api_HostAddress = http://localhost:5075
+
+GET {{JACK.ERP.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

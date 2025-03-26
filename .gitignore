@@ -36,3 +36,4 @@ Properties/PublishProfiles/
 *.sqlite
 *.bak
 *.tmp
+.vs/
