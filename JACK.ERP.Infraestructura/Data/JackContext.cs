@@ -4,8 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JACK.ERP.Infraestructura.Data
 {
+    /// <summary>
+    /// JackContext representa el DbContext principal del sistema.
+    /// Se encarga de mapear las entidades (Cliente, ListaNegra, Copia, Alquiler, AlquilerDetalle)
+    /// con sus correspondientes tablas en la base de datos.
+    /// </summary>
     public class JackContext : DbContext
     {
+        /// <summary>
+        /// Constructor que recibe las opciones para la configuración de EF (cadena de conexión, etc).
+        /// </summary>
         public JackContext(DbContextOptions<JackContext> options) : base(options) { }
 
         public DbSet<Cliente> Clientes { get; set; }
@@ -14,9 +22,14 @@ namespace JACK.ERP.Infraestructura.Data
         public DbSet<Alquiler> Alquileres { get; set; }
         public DbSet<AlquilerDetalle> AlquilerDetalles { get; set; }
 
+        /// <summary>
+        /// Método que se invoca al crear el modelo de EF.
+        /// Aquí se configuran las restricciones, nombres de tablas,
+        /// relaciones y conversiones entre tipos de C# y SQL.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configs de Copia con enum => string
+            
             modelBuilder.Entity<Copia>(entity =>
             {
                 entity.ToTable("Copia");
@@ -26,14 +39,14 @@ namespace JACK.ERP.Infraestructura.Data
                     .HasMaxLength(50)
                     .IsRequired();
 
-                // Mapeo de enum a string
+               
                 entity.Property(e => e.Estado)
                     .HasConversion<string>()
                     .HasMaxLength(20)
                     .IsRequired();
             });
 
-            // Resto de entidades, en sintonía con la BD
+            
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.ToTable("Cliente");

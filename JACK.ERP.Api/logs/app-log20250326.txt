@@ -1,0 +1,66 @@
+2025-03-26 09:22:12.182 -05:00 [INF] Now listening on: https://localhost:7255
+2025-03-26 09:22:12.219 -05:00 [INF] Now listening on: http://localhost:5075
+2025-03-26 09:22:12.295 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-26 09:22:12.298 -05:00 [INF] Hosting environment: Development
+2025-03-26 09:22:12.300 -05:00 [INF] Content root path: C:\Users\JCAC\source\repos\JACK.ERP\JACK.ERP.Api
+2025-03-26 09:22:13.105 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/index.html - null null
+2025-03-26 09:22:13.365 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/index.html - 200 null text/html;charset=utf-8 275.7043ms
+2025-03-26 09:22:13.403 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/index.js - null null
+2025-03-26 09:22:13.403 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-26 09:22:13.412 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/index.js - 200 null application/javascript;charset=utf-8 11.0747ms
+2025-03-26 09:22:13.406 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/_vs/browserLink - null null
+2025-03-26 09:22:13.429 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/_framework/aspnetcore-browser-refresh.js - 200 13776 application/javascript; charset=utf-8 27.6744ms
+2025-03-26 09:22:13.478 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/_vs/browserLink - 200 null text/javascript; charset=UTF-8 71.6364ms
+2025-03-26 09:22:13.559 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/v1/swagger.json - null null
+2025-03-26 09:22:13.585 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 27.541ms
+2025-03-26 09:22:16.825 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/api/Prestamo/listar - null null
+2025-03-26 09:22:16.838 -05:00 [INF] Executing endpoint 'JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api)'
+2025-03-26 09:22:16.857 -05:00 [INF] Route matched with {action = "ListarPrestamos", controller = "Prestamo"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[JACK.ERP.Api.DTOs.ListarPrestamoResponse]]] ListarPrestamosAsync() on controller JACK.ERP.Api.Controllers.PrestamoController (JACK.ERP.Api).
+2025-03-26 09:22:17.064 -05:00 [INF] Obteniendo lista de préstamos (alquileres)...
+2025-03-26 09:22:18.871 -05:00 [INF] Executed DbCommand (67ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[AlquilerId], [a].[ClienteId], [a].[FechaDevolucion], [a].[FechaFin], [a].[FechaInicio], [a].[Penalidad], [c].[ClienteId], [c].[Direccion], [c].[DocumentoIdentidad], [c].[Nombres], [c].[Telefono], [s].[DetalleId], [s].[AlquilerId], [s].[CopiaId], [s].[CopiaId0], [s].[CodigoBarras], [s].[Estado]
+FROM [Alquiler] AS [a]
+INNER JOIN [Cliente] AS [c] ON [a].[ClienteId] = [c].[ClienteId]
+LEFT JOIN (
+    SELECT [a0].[DetalleId], [a0].[AlquilerId], [a0].[CopiaId], [c0].[CopiaId] AS [CopiaId0], [c0].[CodigoBarras], [c0].[Estado]
+    FROM [AlquilerDetalle] AS [a0]
+    INNER JOIN [Copia] AS [c0] ON [a0].[CopiaId] = [c0].[CopiaId]
+) AS [s] ON [a].[AlquilerId] = [s].[AlquilerId]
+ORDER BY [a].[AlquilerId], [c].[ClienteId], [s].[DetalleId]
+2025-03-26 09:22:19.071 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[JACK.ERP.Dominio.Entities.Alquiler, JACK.ERP.Dominio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[JACK.ERP.Api.DTOs.ListarPrestamoResponse, JACK.ERP.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-26 09:22:19.111 -05:00 [INF] Executed action JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api) in 2245.1728ms
+2025-03-26 09:22:19.114 -05:00 [INF] Executed endpoint 'JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api)'
+2025-03-26 09:22:19.127 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/api/Prestamo/listar - 200 null application/json; charset=utf-8 2303.1158ms
+2025-03-26 09:30:11.050 -05:00 [INF] Now listening on: https://localhost:7255
+2025-03-26 09:30:11.085 -05:00 [INF] Now listening on: http://localhost:5075
+2025-03-26 09:30:11.188 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-26 09:30:11.191 -05:00 [INF] Hosting environment: Development
+2025-03-26 09:30:11.193 -05:00 [INF] Content root path: C:\Users\JCAC\source\repos\JACK.ERP\JACK.ERP.Api
+2025-03-26 09:30:11.687 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/index.html - null null
+2025-03-26 09:30:11.885 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/index.html - 200 null text/html;charset=utf-8 204.6027ms
+2025-03-26 09:30:11.912 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/index.js - null null
+2025-03-26 09:30:11.912 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-26 09:30:11.916 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/_vs/browserLink - null null
+2025-03-26 09:30:11.920 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/index.js - 200 null application/javascript;charset=utf-8 9.2085ms
+2025-03-26 09:30:11.940 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/_framework/aspnetcore-browser-refresh.js - 200 13776 application/javascript; charset=utf-8 28.4984ms
+2025-03-26 09:30:11.977 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/_vs/browserLink - 200 null text/javascript; charset=UTF-8 60.7072ms
+2025-03-26 09:30:12.058 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/swagger/v1/swagger.json - null null
+2025-03-26 09:30:12.086 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 28.1261ms
+2025-03-26 09:30:17.079 -05:00 [INF] Request starting HTTP/2 GET https://localhost:7255/api/Prestamo/listar - null null
+2025-03-26 09:30:17.098 -05:00 [INF] Executing endpoint 'JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api)'
+2025-03-26 09:30:17.134 -05:00 [INF] Route matched with {action = "ListarPrestamos", controller = "Prestamo"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[JACK.ERP.Api.DTOs.ListarPrestamoResponse]]] ListarPrestamosAsync() on controller JACK.ERP.Api.Controllers.PrestamoController (JACK.ERP.Api).
+2025-03-26 09:30:17.371 -05:00 [INF] Obteniendo lista de préstamos (alquileres)...
+2025-03-26 09:30:19.248 -05:00 [INF] Executed DbCommand (63ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[AlquilerId], [a].[ClienteId], [a].[FechaDevolucion], [a].[FechaFin], [a].[FechaInicio], [a].[Penalidad], [c].[ClienteId], [c].[Direccion], [c].[DocumentoIdentidad], [c].[Nombres], [c].[Telefono], [s].[DetalleId], [s].[AlquilerId], [s].[CopiaId], [s].[CopiaId0], [s].[CodigoBarras], [s].[Estado]
+FROM [Alquiler] AS [a]
+INNER JOIN [Cliente] AS [c] ON [a].[ClienteId] = [c].[ClienteId]
+LEFT JOIN (
+    SELECT [a0].[DetalleId], [a0].[AlquilerId], [a0].[CopiaId], [c0].[CopiaId] AS [CopiaId0], [c0].[CodigoBarras], [c0].[Estado]
+    FROM [AlquilerDetalle] AS [a0]
+    INNER JOIN [Copia] AS [c0] ON [a0].[CopiaId] = [c0].[CopiaId]
+) AS [s] ON [a].[AlquilerId] = [s].[AlquilerId]
+ORDER BY [a].[AlquilerId], [c].[ClienteId], [s].[DetalleId]
+2025-03-26 09:30:19.438 -05:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[JACK.ERP.Dominio.Entities.Alquiler, JACK.ERP.Dominio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[JACK.ERP.Api.DTOs.ListarPrestamoResponse, JACK.ERP.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-03-26 09:30:19.485 -05:00 [INF] Executed action JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api) in 2342.4169ms
+2025-03-26 09:30:19.489 -05:00 [INF] Executed endpoint 'JACK.ERP.Api.Controllers.PrestamoController.ListarPrestamosAsync (JACK.ERP.Api)'
+2025-03-26 09:30:19.502 -05:00 [INF] Request finished HTTP/2 GET https://localhost:7255/api/Prestamo/listar - 200 null application/json; charset=utf-8 2424.0557ms

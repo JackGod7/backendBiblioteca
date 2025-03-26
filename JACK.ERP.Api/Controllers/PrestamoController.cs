@@ -28,7 +28,6 @@ namespace JACK.ERP.Api.Controllers
             var response = alquileres
                 .Select(a => a.ToListarPrestamoResponse());
 
-            // Retornamos un 200 OK con el array
             return Ok(response);
         }
 

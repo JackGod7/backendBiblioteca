@@ -6,7 +6,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Configurar política de CORS
+// Configuración política de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularDev", policy =>
@@ -20,7 +20,6 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 
-//builder.Services.AddControllers();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -58,7 +57,7 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
-// 🚨 Asegúrate de poner esto antes de authorization
+// Esto va antes de Authorization pero como estamos en prueba, siento que no es necesario - Atte. Jack Aguilar
 app.UseCors("AllowAngularDev");
 
 app.UseAuthorization();
