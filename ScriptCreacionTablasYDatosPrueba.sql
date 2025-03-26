@@ -118,7 +118,7 @@ VALUES (
 );
 
 /*
-Casos para probar en tu endpoint:
+Casos para probar en el endpoint:
 1. Cliente válido, copia disponible → éxito (p.ej. ClienteId=1, CopiaId=1 or 3)
 2. Cliente en lista negra → error (ClienteId=2)
 3. Copia ya prestada (C002) → error
